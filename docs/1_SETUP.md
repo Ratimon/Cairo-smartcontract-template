@@ -227,8 +227,7 @@ Test your installation on execute _cairo-compile_
 cairo-compile
 ```
 
-## [source,bash]
-
+```bash
 usage: cairo-compile [-h] [--proof_mode] [--no_proof_mode] [-v]
 [--prime PRIME] [--cairo_path CAIRO_PATH] [--preprocess]
 [--output OUTPUT] [--no_debug_info]
@@ -237,8 +236,7 @@ usage: cairo-compile [-h] [--proof_mode] [--no_proof_mode] [-v]
 [--no_opt_unused_functions]
 file [file ...]
 cairo-compile: error: the following arguments are required: file
-
----
+```
 
 ## Install IDE
 
@@ -248,9 +246,9 @@ Download the Cairo Visual Studio Code extension : https://github.com/starkware-l
 
 Add plugin to VS (Note: For me the file is located at ~/Download/cairo-0.7.0.vsix)
 
-## [source,bash]
-
-## code --install-extension ~/Download/cairo-0.7.0.vsix
+```bash
+code --install-extension ~/Download/cairo-0.7.0.vsix
+```
 
 Then in VS, click on setting and search _formatOnsave_ and activate this option.
 
