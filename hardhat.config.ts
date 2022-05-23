@@ -1,7 +1,5 @@
-// import { config as dotenvConfig } from "dotenv";
 import 'dotenv/config';
 import {HardhatUserConfig} from 'hardhat/types';
-// import { NetworkUserConfig } from "hardhat/types";
 
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
@@ -19,14 +17,10 @@ import "@tenderly/hardhat-tenderly";
 import "@shardlabs/starknet-hardhat-plugin";
 
 
-import {node_url, accounts, addForkConfiguration} from './utils/network';
-
 import tasks from './tasks'
 for (const tsk of tasks) { tsk() }
 
 
-// const PRIVATE_KEY = process.env.PKEY;
-// const MNEMONIC = process.env.MNEMONIC;
 const ETHERSCAN_KEY = process.env.ETHERSCANKEY;
 
 const config: HardhatUserConfig = {
@@ -49,11 +43,26 @@ const config: HardhatUserConfig = {
           },
         }
       },
-
-      
     ],
 
 
+  },
+
+  starknet: {
+    dockerizedVersion: "0.8.1", // alternatively choose one of the two venv options below
+    // uses (my-venv) defined by `python -m venv path/to/my-venv`
+    // venv: "path/to/my-venv",
+
+    // uses the currently active Python environment (hopefully with available Starknet commands!)
+    // venv: "active",
+    network: "alpha",
+    wallets: {
+      OpenZeppelin: {
+        accountName: "OpenZeppelin",
+        modulePath: "starkware.starknet.wallets.open_zeppelin.OpenZeppelinAccount",
+        accountPath: "~/.starknet_accounts"
+      }
+    }
   },
   namedAccounts: {
     deployer: 0,
@@ -63,91 +72,26 @@ const config: HardhatUserConfig = {
 
 
     zero: "0x0000000000000000000000000000000000000000",
-     ///-------------------/deploy---tokens-------------------///
-
-
 
 
   },
 
-
-  networks: addForkConfiguration({
-    hardhat: {
-      initialBaseFeePerGas: 0, // to fix : https://github.com/sc-forks/solidity-coverage/issues/652, see https://github.com/sc-forks/solidity-coverage/issues/652#issuecomment-896330136
-      tags: ['test']
+  networks: {
+    devnet: {
+      url: "http://127.0.0.1:5050"
     },
-    localhost: {
-      url: node_url('localhost'),
-      accounts: accounts(),
-    },
-    staging: {
-      url: node_url('rinkeby'),
-      accounts: accounts('rinkeby'),
-    },
-    production: {
-      url: node_url('mainnet'),
-      accounts: accounts('mainnet'),
-    },
-    mainnet: {
-      url: node_url('mainnet'),
-      accounts: accounts('mainnet'),
-    },
-    rinkeby: {
-      url: node_url('rinkeby'),
-      accounts: accounts('rinkeby'),
-    },
-    kovan: {
-      url: node_url('kovan'),
-      accounts: accounts('kovan'),
-    },
-    goerli: {
-      url: node_url('goerli'),
-      accounts: accounts('goerli'),
-    },
-
-    bscmainnet: {
-      // url: "https://bsc-dataseed.binance.org/",
-      url: node_url('bscmainnet'),
-      accounts: accounts('bscmainnet'),
-      chainId: 56,
-      gasPrice: 5000000000,
-
-      throwOnTransactionFailures: false,
-      // if true,  throw stack traces on transaction failures.
-      // If false, return  failing transaction hash.
-      throwOnCallFailures: true,
-      // If is true, will throw  stack traces when a call fails.
-      // If false, will return the call's return data, which can contain a revert reason
-      tags: ['production'],
-    },
-
-    bscmainnetfork: {
-      url: node_url('bscmainnetfork'),
-      accounts: accounts('bscmainnetfork'),
-      tags: ['fork']
-    },
-
-    bsctestnet: {
-      url: node_url('bsctestnet'),
-      accounts: accounts('bsctestnet'),
-      chainId: 97,
-      gasPrice: 10000000000,
-
-      tags: ["staging"]
-
-    },
-
-    starknetdevelop: {
-      url: "http://127.0.0.1:5000"
+    integratedDevnet: {
+      url: "http://127.0.0.1:5050",
+      // venv: "active",
+      // dockerizedVersion: "0.2.0"
     }
 
-
-  }),
-
-  cairo: {
-    // Version of the plugin which is execute on the docker
-    version: "0.7.0"
   },
+
+  // cairo: {
+  //   // Version of the plugin which is execute on the docker
+  //   version: "0.7.0"
+  // },
 
 
   external: process.env.HARDHAT_FORK
@@ -176,10 +120,10 @@ const config: HardhatUserConfig = {
     deploy: './deploy',
     deployments: './deployments',
     imports: './imports',
-    // Where are our contracts: ./contracts
-    starknetSources: __dirname + "/contracts",
-    // Where are our artifacts (build contract): ./stark-artifacts, not use repository "artifacts" which is reserved by hardhat to solidity
-    starknetArtifacts: __dirname + "/stark-artifacts",
+    // // Where are our contracts: ./contracts
+    // starknetSources: __dirname + "/contracts",
+    // // Where are our artifacts (build contract): ./stark-artifacts, not use repository "artifacts" which is reserved by hardhat to solidity
+    // starknetArtifacts: __dirname + "/stark-artifacts",
   },
 
   typechain: {
@@ -189,7 +133,7 @@ const config: HardhatUserConfig = {
 
   mocha: {
     timeout: 300000,
-    starknetNetwork: "starknetdevelop"
+    // starknetNetwork: "starknetdevelop"
   },
   
   
