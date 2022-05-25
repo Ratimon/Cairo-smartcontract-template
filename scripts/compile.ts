@@ -2,7 +2,7 @@ import hardhat from "hardhat";
 
 async function main() {
     await hardhat.run("starknet-compile", {
-        paths: ["contracts/openzeppelin/token/erc20/ERC20.cairo"]
+        paths: ["contracts/openzeppelin/token/erc20/ERC20.cairo", "contracts/util.cairo"]
     });
 }
 

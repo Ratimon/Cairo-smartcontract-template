@@ -61,6 +61,11 @@ const config: HardhatUserConfig = {
         accountName: "OpenZeppelin",
         modulePath: "starkware.starknet.wallets.open_zeppelin.OpenZeppelinAccount",
         accountPath: "~/.starknet_accounts"
+      },
+      AnotherWallet: {
+        accountName: "AnotherOpenZeppelin",
+        modulePath: "starkware.starknet.wallets.open_zeppelin.OpenZeppelinAccount",
+        accountPath: "~/.starknet_accounts"
       }
     }
   },

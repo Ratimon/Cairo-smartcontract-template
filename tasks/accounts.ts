@@ -1,5 +1,7 @@
 import {HardhatRuntimeEnvironment} from 'hardhat/types';
 import { ethers }  from "ethers";
+import { starknet } from "hardhat";
+
 
 import { task } from "hardhat/config";
 
@@ -13,5 +15,7 @@ export default async () => {
       for (const account of accounts) {
         console.log(await account.getAddress());
       }
+      // const account = await starknet.getAccountFromAddress(accountAddress, process.env.PRIVATE_KEY, "OpenZeppelin");
+
   })
 }
