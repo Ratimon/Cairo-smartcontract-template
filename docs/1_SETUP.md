@@ -10,9 +10,9 @@ There are multiple ways of installing Node.js on MacOS. We will be using [Node V
 
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | bash
-nvm install 12.19.1
-nvm use 12.19.1
-nvm alias default 12.19.1
+nvm install 16.14.2
+nvm use 16.14.2
+nvm alias default 16.14.2
 npm install npm --global # Upgrade npm to the latest version
 ```
 
@@ -55,54 +55,6 @@ Run following yo install required dependencies
 
 ```bash
 yarn install
-```
-
-## Dependency Issues
-
-However, current verison of [waffle.io](https://vanity-eth.tk/) doesnot support checking against subset of args emitted in events.
-
-To support this, we may need to use **openzeppelin-test-helpers**. Install with:
-
-```bash
-yarn add -D @nomiclabs/hardhat-truffle5
-yarn add -D openzeppelin-test-helpers
-```
-
-```bash
-yarn add hardhat-tracer
-```
-
-Also, there is sometimes problem with **hardhat-deploy-ethers** dependency. Here is a way to fix:
-
-```bash
-yarn add -D  @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
-```
-
-But it sometimes does not work, try this:
-
-```bash
-yarn add -D  hardhat-deploy-ethers
-```
-
-Edit `hardhat.config.ts` so that it looks as in our repository:
-
-We also create the following `tsconfig.json` :
-
-```json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "dist"
-  },
-  "include": ["./artifacts", "./deploy", "./test", "./utils"],
-  "files": ["./hardhat.config.ts"]
-}
 ```
 
 ## Add .gitignore
@@ -237,20 +189,6 @@ usage: cairo-compile [-h] [--proof_mode] [--no_proof_mode] [-v]
 file [file ...]
 cairo-compile: error: the following arguments are required: file
 ```
-
-## Install IDE
-
-Download Visual Studio (VS) : https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
-
-Download the Cairo Visual Studio Code extension : https://github.com/starkware-libs/cairo-lang/releases/download/v0.6.2/cairo-0.6.2.vsix
-
-Add plugin to VS (Note: For me the file is located at ~/Download/cairo-0.7.0.vsix)
-
-```bash
-code --install-extension ~/Download/cairo-0.7.0.vsix
-```
-
-Then in VS, click on setting and search _formatOnsave_ and activate this option.
 
 ## Run a starknet-devnet
 
