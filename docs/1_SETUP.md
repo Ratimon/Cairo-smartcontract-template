@@ -37,6 +37,18 @@ yarn init --yes
 yarn add -D hardhat
 ```
 
+Also, there is sometimes problem with **hardhat-deploy-ethers** dependency. Here is a way to fix:
+
+```
+yarn add -D  @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+```
+
+But it sometimes does not work, try this:
+
+```
+yarn add -D  hardhat-deploy-ethers
+```
+
 In the same directory where you installed **Hardhat** add a `hardhat.config.ts` (we are going to use typescript and use solidity 0.5.17 compiler)
 
 ```typescript
